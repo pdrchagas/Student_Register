@@ -11,7 +11,7 @@ Este é um projeto acadêmico desenvolvido para a disciplina do curso de Ciênci
 
 - **RF01 - Inserir aluno no cadastro:** Permite cadastrar novos estudantes, com proteção contra matrículas (RA) duplicadas e validação da capacidade máxima do sistema.
 - **RF02 - Remover um aluno específico:** Remoção de registros através de busca por identificação única (RA).
-- **RF03 - Listar alunos cadastrados:** Exibição dinâmica de todos os estudantes cadastrados. Permite a listagem em dois formatos: Padrão ou Formato Bibliográfico (ex: `SOUZA, João Lucas`).
+- **RF03 - Listar alunos cadastrados:** Exibição dinâmica de todos os estudantes cadastrados. Permite a listagem em dois formatos: Padrão ou Formato Bibliográfico (ex: `SOUZA, Pedro Chagas`).
 - **RF04 - Atualizar dados de um aluno:** Permite a alteração de dados (Nome, Idade e Curso) de um aluno já existente, buscando pela sua matrícula.
 
 ## Regras de Negócio e Validações
@@ -20,7 +20,7 @@ O sistema foi blindado ("user-friendly") para não exibir mensagens técnicas de
 - Não é permitido cadastrar alunos com a mesma matrícula (RA).
 - O RA (Registro Acadêmico) aceita exclusivamente números.
 - Os campos Nome e Curso aceitam exclusivamente letras e espaços.
-- A idade é validada dentro de um intervalo lógico (16 a 120 anos).
+- A idade é validada dentro de um intervalo lógico (16 a 80 anos).
 - Operações de remoção e atualização bloqueiam tentativas de alterar matrículas inexistentes.
 
 ## Arquitetura e Organização (Pacotes)
