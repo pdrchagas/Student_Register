@@ -1,44 +1,39 @@
+# Student Registration System
 
-João Lucas
-12:21 (há 2 minutos)
-para mim
+This is an academic project developed for a Computer Science course at PUC-SP (1st Semester of 2026). The system consists of a Java application with a Graphical User Interface (GUI) focused on managing student registrations. It applies solid Object-Oriented Programming (OOP) concepts, MVC architecture, and separation of concerns.
 
-# Sistema de Cadastro de Alunos
+## Features (Functional Requirements)
 
-Este é um projeto acadêmico desenvolvido para a disciplina do curso de Ciência da Computação da PUC-SP (1º Semestre de 2026). O sistema consiste em uma aplicação Java com Interface Gráfica (GUI) focada no gerenciamento de cadastros de alunos, aplicando fortes conceitos de Programação Orientada a Objetos (POO), arquitetura MVC e separação de responsabilidades.
+* **FR01 - Insert student record:** Allows the registration of new students, featuring protection against duplicate enrollment numbers (RA - *Registro Acadêmico*) and system maximum capacity validation.
+* **FR02 - Remove a specific student:** Deletes records by searching for their unique identifier (RA).
+* **FR03 - List registered students:** Dynamically displays all registered students. Allows listing in two formats: Standard or Bibliographic Format (e.g., SOUZA, Pedro Chagas).
+* **FR04 - Update student data:** Allows the modification of data (Name, Age, and Course/Major) for an existing student by searching for their enrollment number.
 
-## Funcionalidades (Requisitos Funcionais)
+## Business Rules and Validations
 
-- **RF01 - Inserir aluno no cadastro:** Permite cadastrar novos estudantes, com proteção contra matrículas (RA) duplicadas e validação da capacidade máxima do sistema.
-- **RF02 - Remover um aluno específico:** Remoção de registros através de busca por identificação única (RA).
-- **RF03 - Listar alunos cadastrados:** Exibição dinâmica de todos os estudantes cadastrados. Permite a listagem em dois formatos: Padrão ou Formato Bibliográfico (ex: `SOUZA, Pedro Chagas`).
-- **RF04 - Atualizar dados de um aluno:** Permite a alteração de dados (Nome, Idade e Curso) de um aluno já existente, buscando pela sua matrícula.
+The system was built to be user-friendly, preventing technical error messages from being displayed to the user. All inputs undergo strict validation:
+* Registering students with the same enrollment number (RA) is not allowed.
+* The RA (*Registro Acadêmico* / Enrollment Number) accepts numbers only.
+* The Name and Course fields exclusively accept letters and spaces.
+* Age is validated within a logical range (16 to 80 years).
+* Removal and update operations block attempts to modify non-existent enrollments.
 
-## Regras de Negócio e Validações
+## Architecture and Organization (Packages)
 
-O sistema foi blindado ("user-friendly") para não exibir mensagens técnicas de erro ao usuário. Todas as entradas passam por tratamento rígido:
-- Não é permitido cadastrar alunos com a mesma matrícula (RA).
-- O RA (Registro Acadêmico) aceita exclusivamente números.
-- Os campos Nome e Curso aceitam exclusivamente letras e espaços.
-- A idade é validada dentro de um intervalo lógico (16 a 80 anos).
-- Operações de remoção e atualização bloqueiam tentativas de alterar matrículas inexistentes.
+The code was refactored and divided into packages to ensure readability, reusability, and ease of maintenance:
 
-## Arquitetura e Organização (Pacotes)
+* `modelo/` **(Model):** Contains the domain classes (`Aluno`, `Pessoa`, `Texto`, `NomePessoa`). Encapsulation was strictly applied.
+* `armazenamento/` **(Storage):** Data persistence layer. It uses the Dependency Inversion Principle via the `IArmazenador` interface, allowing the current implementation (`ArmazenadorArray`) to be replaced in the future (e.g., by a Database) without breaking the code.
+* `controle/` **(Controller):** The bridge that applies Business Rules (`CadastroAlunos`), connecting the View to the Storage layer.
+* `visao/` **(View):** User interface. It uses the `IMenu` interface and was implemented via `MenuGrafico` (Java Swing via `JOptionPane`), ensuring that inputs and outputs do not mix with the business logic.
 
-O código foi refatorado e dividido em pacotes para garantir a legibilidade, reutilização e facilidade de manutenção:
+## How to Run
 
-* `modelo/`: Contém as classes de domínio (`Aluno`, `Pessoa`, `Texto`, `NomePessoa`). O encapsulamento foi aplicado rigorosamente.
-* `armazenamento/`: Camada de persistência de dados. Utiliza o Princípio de Inversão de Dependência via interface `IArmazenador`, permitindo que a implementação atual (`ArmazenadorArray`) possa ser trocada no futuro (por um Banco de Dados, por exemplo) sem quebrar o código.
-* `controle/`: Ponte que aplica as Regras de Negócio (`CadastroAlunos`) conectando a Visão com o Armazenamento.
-* `visao/`: Interface com o usuário. Utiliza a interface `IMenu` e foi implementada via `MenuGrafico` (Java Swing via `JOptionPane`), garantindo que entradas e saídas não se misturem com a lógica.
-
-## Como executar
-
-1. Certifique-se de ter o JDK (Java Development Kit) instalado.
-2. Clone este repositório.
-3. Compile os arquivos ou abra a pasta raiz em uma IDE (como BlueJ, Eclipse ou IntelliJ).
-4. Execute o arquivo principal: `App.java`.
+1.  Ensure you have the JDK (Java Development Kit) installed.
+2.  Clone this repository.
+3.  Compile the files or open the root folder in an IDE (such as BlueJ, Eclipse, or IntelliJ).
+4.  Run the main file: `App.java`.
 
 ---
-**Instituição:** PUC-SP - Faculdade de Ciências Exatas e Tecnologia  
-**Laboratório:** LED - Laboratório de Estruturas Dinâmicas
+**Institution:** PUC-SP - School of Exact Sciences and Technology  
+**Laboratory:** LED - Dynamic Structures Laboratory
