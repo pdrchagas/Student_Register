@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Vetor
+comment1.params=
+comment1.target=Vetor()
+comment10.params=origem\ destino
+comment10.target=void\ copiar(java.lang.Object[],\ java.lang.Object[])
+comment2.params=
+comment2.target=java.lang.Object[]\ getArray()
+comment3.params=
+comment3.target=int\ getQtd()
+comment4.params=array
+comment4.target=void\ setArray(java.lang.Object[])
+comment5.params=qtd
+comment5.target=void\ setQtd(int)
+comment6.params=obj
+comment6.target=void\ adicionar(java.lang.Object)
+comment7.params=i
+comment7.target=java.lang.Object\ remover(int)
+comment8.params=i
+comment8.target=java.lang.Object\ buscar(int)
+comment9.params=
+comment9.target=boolean\ estaVazia()
+numComments=11

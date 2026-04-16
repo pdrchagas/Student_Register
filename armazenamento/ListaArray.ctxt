@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=ListaArray
+comment1.params=
+comment1.target=ListaArray()
+comment2.params=
+comment2.target=java.util.ArrayList\ getLista()
+comment3.params=
+comment3.target=int\ getQtd()
+comment4.params=lista
+comment4.target=void\ setLista(java.util.ArrayList)
+comment5.params=obj
+comment5.target=void\ adicionar(java.lang.Object)
+comment6.params=i
+comment6.target=java.lang.Object\ remover(int)
+comment7.params=i
+comment7.target=java.lang.Object\ buscar(int)
+comment8.params=
+comment8.target=boolean\ estaVazia()
+numComments=9

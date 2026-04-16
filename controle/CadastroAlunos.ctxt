@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=CadastroAlunos
+comment1.params=armazenador
+comment1.target=CadastroAlunos(armazenamento.IArmazenador)
+comment2.params=ra
+comment2.target=int\ acharIndicePorRa(java.lang.String)
+comment3.params=a
+comment3.target=void\ inserir(modelo.Aluno)
+comment4.params=ra
+comment4.target=boolean\ remover(java.lang.String)
+comment5.params=ra
+comment5.target=modelo.Aluno\ buscar(java.lang.String)
+comment6.params=
+comment6.target=modelo.Aluno[]\ listar()
+comment7.params=nome
+comment7.target=void\ salvarEmArquivo(java.lang.String)
+comment8.params=nome
+comment8.target=void\ lerDeArquivo(java.lang.String)
+numComments=9
