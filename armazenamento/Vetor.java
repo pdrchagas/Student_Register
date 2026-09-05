@@ -1,9 +1,15 @@
 package armazenamento;
 
+/**
+ * Implementação de armazenamento utilizando um array estático que redimensiona dinamicamente.
+ */
 public class Vetor implements IArmazenador {
     private Object array[]; 
     private int qtd;
 
+    /**
+     * Construtor da classe Vetor. Inicializa o array vazio.
+     */
     public Vetor(){
         setArray(null);
         setQtd(0);
@@ -14,6 +20,7 @@ public class Vetor implements IArmazenador {
     private void setArray(Object[] array) { this.array = array; }
     private void setQtd(int qtd) { this.qtd = qtd; }
 
+    @Override
     public void adicionar(Object obj){
         if (array == null){         
             setArray(new Object[1]);
@@ -28,6 +35,7 @@ public class Vetor implements IArmazenador {
         }
     }
 
+    @Override
     public Object remover(int i) {
         Object ret = null;
         if(buscar(i) != null){
@@ -47,6 +55,7 @@ public class Vetor implements IArmazenador {
         return ret;
     }
 
+    @Override
     public Object buscar (int i){
         Object ret = null;
         if(array != null && (i >= 0 && i < getQtd())) {
@@ -55,8 +64,14 @@ public class Vetor implements IArmazenador {
         return ret;
     }
 
+    @Override
     public boolean estaVazia(){ return (getQtd()==0 && getArray() == null); }
 
+    /**
+     * Método auxiliar para copiar dados entre arrays durante o redimensionamento.
+     * @param origem Array de origem.
+     * @param destino Array de destino.
+     */
     private void copiar(Object origem[], Object destino[]){
         int i, k = 0;
         for (i = 0; i < origem.length; i++){

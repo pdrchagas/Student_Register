@@ -5,14 +5,22 @@ import modelo.Aluno;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Implementação gráfica do menu utilizando a biblioteca Java Swing (JOptionPane).
+ * Gerencia a interação direta com o usuário e exibe as tabelas de listagem.
+ */
 public class MenuGrafico implements IMenu {
 
+    /**
+     * Exibe o menu principal e processa todas as escolhas e formulários do usuário.
+     * @param cadastro Controlador da aplicação contendo as regras de negócio.
+     */
     @Override
     public void exibirMenu(CadastroAlunos cadastro) {
         String textoMenu = "SISTEMA DE CADASTRO\n\n"
                          + "1 - Inserir novo aluno\n"
                          + "2 - Remover aluno\n"
-                         + "3 - Listar alunos (Tabela)\n"
+                         + "3 - Listar alunos (Escolher formato)\n"
                          + "4 - Atualizar aluno\n"
                          + "5 - Salvar arquivo (na pasta dados)\n"
                          + "6 - Ler arquivo (da pasta dados)\n"
@@ -25,6 +33,12 @@ public class MenuGrafico implements IMenu {
 
             switch (op) {
                 case "1": 
+                    // Verifica limite da sala antes de abrir formulário
+                    if (cadastro.isCheio()) {
+                        JOptionPane.showMessageDialog(null, "ERRO: A capacidade máxima da sala foi atingida!\nRemova um aluno para cadastrar novos.", "Sala Cheia", JOptionPane.ERROR_MESSAGE);
+                        break; 
+                    }
+
                     JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
                     JTextField ra = new JTextField();
                     JTextField nome = new JTextField();
@@ -32,7 +46,7 @@ public class MenuGrafico implements IMenu {
                     JTextField curso = new JTextField();
                     
                     panel.add(new JLabel("RA (Apenas números):")); panel.add(ra);
-                    panel.add(new JLabel("Nome:")); panel.add(nome);
+                    panel.add(new JLabel("Nome Completo:")); panel.add(nome);
                     panel.add(new JLabel("Idade:")); panel.add(idade);
                     panel.add(new JLabel("Curso:")); panel.add(curso);
 
@@ -69,14 +83,29 @@ public class MenuGrafico implements IMenu {
 
                 case "3": 
                     Aluno[] lista = cadastro.listar();
-                    String[] colunas = {"RA", "Nome (Biblio)", "Idade", "Curso"};
+                    
+                    if (lista.length == 0) {
+                        JOptionPane.showMessageDialog(null, "A sala está vazia. Nenhum aluno para listar.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+
+                    Object[] opcoesFormato = {"Nome Normal", "Nome Bibliográfico"};
+                    int formatoEscolhido = JOptionPane.showOptionDialog(null, "Como deseja visualizar os nomes dos alunos?", "Formato de Exibição",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoesFormato, opcoesFormato[0]);
+
+                    if (formatoEscolhido == JOptionPane.CLOSED_OPTION) break;
+
+                    String tituloNome = (formatoEscolhido == 1) ? "Nome Bibliográfico" : "Nome Completo";
+                    String[] colunas = {"RA", tituloNome, "Idade", "Curso"};
+                    
                     String[][] dados = new String[lista.length][4];
                     for (int i = 0; i < lista.length; i++) {
                         dados[i][0] = lista[i].getRa();
-                        dados[i][1] = lista[i].getNomeBiblio();
+                        dados[i][1] = (formatoEscolhido == 1) ? lista[i].getNomeBiblio() : lista[i].getNome();
                         dados[i][2] = "" + lista[i].getIdade();
                         dados[i][3] = lista[i].getCurso();
                     }
+                    
                     JTable tabela = new JTable(dados, colunas);
                     JOptionPane.showMessageDialog(null, new JScrollPane(tabela), "Lista de Alunos", JOptionPane.PLAIN_MESSAGE);
                     break;
@@ -99,9 +128,9 @@ public class MenuGrafico implements IMenu {
                                 al.setIdade(Integer.parseInt(txtIdade.getText().trim()));
                                 al.setCurso(txtCurso.getText().trim());
                                 JOptionPane.showMessageDialog(null, "Atualizado!");
-                            } catch (Exception e) { JOptionPane.showMessageDialog(null, "Erro!"); }
+                            } catch (Exception e) { JOptionPane.showMessageDialog(null, "Erro nos dados!"); }
                         }
-                    }
+                    } else { JOptionPane.showMessageDialog(null, "RA não encontrado."); }
                     break;
 
                 case "5": 
@@ -116,7 +145,7 @@ public class MenuGrafico implements IMenu {
                     String arqLer = JOptionPane.showInputDialog("Nome do arquivo dentro da pasta 'dados':");
                     if (arqLer != null && !arqLer.isEmpty()) {
                         try { cadastro.lerDeArquivo(arqLer); JOptionPane.showMessageDialog(null, "Lido com sucesso!"); }
-                        catch (Exception e) { JOptionPane.showMessageDialog(null, "Erro: Arquivo não encontrado na pasta 'dados'."); }
+                        catch (Exception e) { JOptionPane.showMessageDialog(null, "Erro: Arquivo não encontrado."); }
                     }
                     break;
             }
